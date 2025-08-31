@@ -6,8 +6,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #0b0e12;
-      color: #fff;
+      background: linear-gradient(135deg, #ffcc66, #ff9933);
+      color: #000;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -16,24 +16,28 @@
       margin: 0;
     }
     h1 {
-      color: #ff7a00;
+      color: #cc5200;
+      text-shadow: 1px 1px 2px #fff;
     }
     #board {
       display: grid;
       grid-template-columns: repeat(3, 100px);
-      grid-gap: 5px;
+      grid-gap: 8px;
+      margin-top: 20px;
     }
     .cell {
       width: 100px;
       height: 100px;
-      background: #12161c;
+      background: #ffe0b3;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.5rem;
       font-weight: bold;
       cursor: pointer;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      color: #cc5200;
     }
     .cell.taken {
       cursor: default;
@@ -41,23 +45,30 @@
     #status {
       margin-top: 20px;
       font-size: 1.2rem;
+      font-weight: bold;
+      color: #cc5200;
+      text-shadow: 1px 1px 1px #fff;
     }
     button {
       margin-top: 15px;
       padding: 10px 20px;
       border: none;
       border-radius: 6px;
-      background: #ff7a00;
-      color: #000;
+      background: #cc5200;
+      color: #fff;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    button:hover {
+      background: #e65c00;
     }
   </style>
 </head>
 <body>
-  <h1>Tic Tac Toe — <span style="color:#ff7a00">@ethsign</span> Edition</h1>
+  <h1>Tic Tac Toe — <span style="color:#cc5200">@ethsign</span> Edition</h1>
   <div id="board"></div>
-  <div id="status">Player X's turn</div>
+  <div id="status">Player $SIGN's turn</div>
   <button onclick="resetGame()">Reset</button>  <script>
     const boardEl = document.getElementById('board');
     const statusEl = document.getElementById('status');
@@ -81,14 +92,18 @@
 
     function handleMove(i) {
       if (board[i] || calculateWinner()) return;
-      board[i] = xIsNext ? 'X' : 'O';
+      board[i] = xIsNext ? '$SIGN' : '🍊';
       xIsNext = !xIsNext;
       renderBoard();
       const winner = calculateWinner();
       if (winner) {
-        statusEl.textContent = winner === 'Draw' ? 'It\'s a draw!' : `${winner} wins!`;
+        if (winner === 'Draw') {
+          statusEl.textContent = "It's a draw!";
+        } else {
+          statusEl.textContent = winner === '$SIGN' ? '$SIGN takes the win! 🎉' : '🍊 dominates the board! 🏆';
+        }
       } else {
-        statusEl.textContent = `Player ${xIsNext ? 'X' : 'O'}'s turn`;
+        statusEl.textContent = `Player ${xIsNext ? '$SIGN' : '🍊'}'s turn`;
       }
     }
 
@@ -109,11 +124,10 @@
     function resetGame() {
       board = Array(9).fill(null);
       xIsNext = true;
-      statusEl.textContent = "Player X's turn";
+      statusEl.textContent = "Player $SIGN's turn";
       renderBoard();
     }
 
     renderBoard();
   </script></body>
 </html>
-I c
